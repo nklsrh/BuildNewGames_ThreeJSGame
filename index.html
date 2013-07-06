@@ -2,5 +2,17 @@
 <html>
 	<head>
 		<title>Game</title>
+		<style>
+			#gameCanvas {
+				background-color: black;
+				width: 640px;
+				height: 360px;
+			}
+		</style>
 	</head>
+	<body onload='setup();'>
+		<div id='gameCanvas'></div>
+		<script src='./Scripts/three.min.js'></script>
+		<script src='./Scripts/game.js'></script>
+	</body>
 </html>

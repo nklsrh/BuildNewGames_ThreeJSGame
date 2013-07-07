@@ -56,17 +56,35 @@ function setup()
 		planeHeight = fieldHeight,
 		planeQuality = 10;
 		
+	// // create the table's material
+	var paddle1Material =
+	  new THREE.MeshLambertMaterial(
+		{
+		  color: 0x1B32C0
+		});
+	// // create the table's material
+	var paddle2Material =
+	  new THREE.MeshLambertMaterial(
+		{
+		  color: 0xFF4045
+		});
 	// // create the sphere's material
 	var planeMaterial =
 	  new THREE.MeshLambertMaterial(
 		{
-		  color: 0x420000
+		  color: 0x4BD121
+		});
+	// // create the table's material
+	var tableMaterial =
+	  new THREE.MeshLambertMaterial(
+		{
+		  color: 0x20211E
 		});
 		
 	var plane = new THREE.Mesh(
 
 	  new THREE.PlaneGeometry(
-		planeWidth,
+		planeWidth * 0.95,
 		planeHeight,
 		planeQuality,
 		planeQuality),
@@ -75,6 +93,21 @@ function setup()
 	  
 	scene.add(plane);
 	plane.receiveShadow = true;	
+	
+	var table = new THREE.Mesh(
+
+	  new THREE.CubeGeometry(
+		planeWidth * 1.05,
+		planeHeight * 1.03,
+		100,
+		planeQuality,
+		planeQuality,
+		1),
+
+	  tableMaterial);
+	table.position.z = -51;
+	scene.add(table);
+	table.receiveShadow = true;	
 		
 	// // set up the sphere vars
 	var radius = 5,
@@ -85,7 +118,7 @@ function setup()
 	var sphereMaterial =
 	  new THREE.MeshLambertMaterial(
 		{
-		  color: 0xFF5000
+		  color: 0xD43001
 		});
 		
 	// // create a new mesh with
@@ -104,7 +137,7 @@ function setup()
 	scene.add(ball);
 	ball.position.x = 0;
 	ball.position.y = 0;
-	ball.position.z = radius/2;
+	ball.position.z = radius;
 	ball.receiveShadow = true;
     ball.castShadow = true;
 	
@@ -124,7 +157,7 @@ function setup()
 		paddleQuality,
 		paddleQuality),
 
-	  sphereMaterial);
+	  paddle1Material);
 
 	// // add the sphere to the scene
 	scene.add(paddle1);
@@ -141,7 +174,7 @@ function setup()
 		paddleQuality,
 		paddleQuality),
 
-	  sphereMaterial);
+	  paddle2Material);
 	  
 	// // add the sphere to the scene
 	scene.add(paddle2);
@@ -162,35 +195,73 @@ function setup()
 	pointLight.position.x = -1000;
 	pointLight.position.y = 0;
 	pointLight.position.z = 1000;
-	pointLight.intensity = 2;
+	pointLight.intensity = 2.9;
 	pointLight.distance = 10000;
 	// add to the scene
 	scene.add(pointLight);
 		
     spotLight = new THREE.SpotLight(0xffffff);
     spotLight.position.set(0, 0, 460);
-    spotLight.intensity = 3;
+    spotLight.intensity = 1.5;
     spotLight.castShadow = true;
     scene.add(spotLight);
 	
 	renderer.shadowMapEnabled = true;
 	
-	for (var i = 0; i < 10; i++)
+	for (var i = 0; i < 5; i++)
 	{
 		var backdrop = new THREE.Mesh(
 
-		  new THREE.TorusKnotGeometry( 
-		  3200, 
-		  925, 
-		  32, 
-		  62, 
-		  32 ),
+		  new THREE.CubeGeometry( 
+		  30, 
+		  30, 
+		  300, 
+		  1, 
+		  1,
+		  1 ),
 
 		  sphereMaterial);
-		backdrop.rotation.z = i * (360 / 10) * Math.PI/180;
+		  backdrop.position.x = -50 + i * 100;
+		  backdrop.position.y = 230;
+		  backdrop.position.z = -30;		
+		  backdrop.castShadow = true;
+		  backdrop.receiveShadow = true;
 		scene.add(backdrop);	
 	}
-	
+	for (var i = 0; i < 5; i++)
+	{
+		var backdrop = new THREE.Mesh(
+
+		  new THREE.CubeGeometry( 
+		  30, 
+		  30, 
+		  300, 
+		  1, 
+		  1,
+		  1 ),
+
+		  sphereMaterial);
+		  backdrop.position.x = -50 + i * 100;
+		  backdrop.position.y = -230;
+		  backdrop.position.z = -30;
+		backdrop.castShadow = true;
+		backdrop.receiveShadow = true;
+		scene.add(backdrop);	
+	}
+	var ground = new THREE.Mesh(
+
+	  new THREE.CubeGeometry( 
+	  1000, 
+	  1000, 
+	  3, 
+	  1, 
+	  1,
+	  1 ),
+
+	  paddle1Material);
+	ground.position.z = -132;
+	scene.add(ground);
+		
 	score1 = 0;
 	score2 = 0;
 	
@@ -277,6 +348,7 @@ function opponentPaddleMovement()
 			paddle2.position.y -= paddleSpeed;
 		}
 	}
+	paddle2.scale.y += (1 - paddle2.scale.y) * 0.2;	
 }
 
 function playerPaddleMovement()
@@ -312,23 +384,25 @@ function playerPaddleMovement()
 	{
 		paddle1DirY = 0;
 	}
-			paddle1.scale.z += (1 - paddle1.scale.z) * 0.2;
 	
+	paddle1.scale.y += (1 - paddle1.scale.y) * 0.2;	
+	paddle1.scale.z += (1 - paddle1.scale.z) * 0.2;	
 	paddle1.position.y += paddle1DirY;
 }
 
 function cameraPhysics()
 {
-	// spotLight.position.x = ball.position.x;
-	// spotLight.position.y = ball.position.y;
-	camera.lookAt(new THREE.Vector3(paddle1.position.x - ball.position.x * 0.1, paddle1.position.y - ball.position.y * 0.1, ball.position.z));
+	spotLight.position.x = ball.position.x * 2;
+	spotLight.position.y = ball.position.y * 2;
+	// camera.lookAt(new THREE.Vector3(paddle1.position.x - ball.position.x * 0.1, paddle1.position.y - ball.position.y * 0.1, ball.position.z));
 	
 	// move to behind the player's paddle
 	camera.position.x = paddle1.position.x - 100;
-	camera.position.y = paddle1.position.y;
+	camera.position.y += (paddle1.position.y - camera.position.y) * 0.05;
 	camera.position.z = paddle1.position.z + 100 + 0.04 * (-ball.position.x + paddle1.position.x);
 	
 	// rotate to face towards the opponent
+	camera.rotation.x = -0.03 * (ball.position.y) * Math.PI/180;
 	camera.rotation.y = -60 * Math.PI/180;
 	camera.rotation.z = -90 * Math.PI/180;
 }
@@ -348,6 +422,7 @@ function paddlePhysics()
 			// and if ball is travelling towards player (-ve direction)
 			if (ballDirX < 0)
 			{
+				paddle1.scale.y = 15;
 				ballDirX = -ballDirX;
 				if (paddle1DirY > 0.5)
 				{
@@ -370,6 +445,7 @@ function paddlePhysics()
 			// and if ball is travelling towards opponent (+ve direction)
 			if (ballDirX > 0)
 			{
+				paddle2.scale.y = 15;	
 				ballDirX = -ballDirX;
 				if (paddle2DirY > 0.5)
 				{

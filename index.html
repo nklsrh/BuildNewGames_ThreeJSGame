@@ -7,12 +7,23 @@
 				background-color: black;
 				width: 640px;
 				height: 360px;
+				margin: auto;
+				align: center;
+			}
+			#scoreboard {
+				text-align: center;
 			}
 		</style>
 	</head>
 	<body onload='setup();'>
 		<div id='gameCanvas'></div>
 		<script src='./Scripts/three.min.js'></script>
+		<script src='./Scripts/keyboard.js'></script>
 		<script src='./Scripts/game.js'></script>
+		<div id='scoreboard'>
+			<h1 id='scores' style='font-size:600%; padding:0; margin:0'>0-0</h1>
+			<h1>3D PONG</h1>
+			<h2>First to 7 wins!</h2>
+		</div>
 	</body>
 </html>

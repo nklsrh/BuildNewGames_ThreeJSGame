@@ -29,7 +29,7 @@ var score1 = 0, score2 = 0;
 var maxScore = 7;
 
 // set opponent reflexes (0 - easiest, 1 - hardest)
-var difficulty = 0.5;
+var difficulty = 0.2;
 
 // ------------------------------------- //
 // ------- GAME FUNCTIONS -------------- //
@@ -495,7 +495,7 @@ function cameraPhysics()
 	camera.position.z = paddle1.position.z + 100 + 0.04 * (-ball.position.x + paddle1.position.x);
 	
 	// rotate to face towards the opponent
-	camera.rotation.x = -0.03 * (ball.position.y) * Math.PI/180;
+	camera.rotation.x = -0.01 * (ball.position.y) * Math.PI/180;
 	camera.rotation.y = -60 * Math.PI/180;
 	camera.rotation.z = -90 * Math.PI/180;
 }
@@ -522,13 +522,10 @@ function paddlePhysics()
 				paddle1.scale.y = 15;
 				// switch direction of ball travel to create bounce
 				ballDirX = -ballDirX;
-				// if the paddle is moving above a min speed, we impact ball angle
+				// we impact ball angle when hitting it
 				// this is not realistic physics, just spices up the gameplay
 				// allows you to 'slice' the ball to beat the opponent
-				if (paddle1DirY > 0.5)
-				{
-					ballDirY -= paddle1DirY * 0.7;
-				}
+				ballDirY -= paddle1DirY * 0.7;
 			}
 		}
 	}
@@ -552,13 +549,10 @@ function paddlePhysics()
 				paddle2.scale.y = 15;	
 				// switch direction of ball travel to create bounce
 				ballDirX = -ballDirX;
-				// if the paddle is moving above a min speed, we impact ball angle
+				// we impact ball angle when hitting it
 				// this is not realistic physics, just spices up the gameplay
 				// allows you to 'slice' the ball to beat the opponent
-				if (paddle2DirY > 0.5)
-				{
-					ballDirY -= paddle2DirY * 0.7;
-				}
+				ballDirY -= paddle2DirY * 0.7;
 			}
 		}
 	}

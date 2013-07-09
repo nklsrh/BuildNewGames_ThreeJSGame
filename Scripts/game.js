@@ -345,7 +345,6 @@ function draw()
 	cameraPhysics();
 	playerPaddleMovement();
 	opponentPaddleMovement();
-	matchScoreCheck();	
 }
 
 function ballPhysics()
@@ -359,6 +358,7 @@ function ballPhysics()
 		document.getElementById("scores").innerHTML = score1 + "-" + score2;
 		// reset ball to center
 		resetBall(2);
+		matchScoreCheck();	
 	}
 	
 	// if ball goes off the 'right' side (CPU's side)
@@ -370,6 +370,7 @@ function ballPhysics()
 		document.getElementById("scores").innerHTML = score1 + "-" + score2;
 		// reset ball to center
 		resetBall(1);
+		matchScoreCheck();	
 	}
 	
 	// if ball goes off the top side (side of table)

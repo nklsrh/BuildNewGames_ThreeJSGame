@@ -117,7 +117,7 @@ Simple collision detection logic is required to check if the ball is touching ea
 
 Later, we will edit some of this code in order to implement scoring when the ball passes a paddle.
 
-## Keyboard input for paddle
+## Keyboard input for paddles
 We will utilise a very effective short-cut in order to easily get keyboard input working in this game. Using the Keyboard.js file provided, we simply have to include the reference to it in the index.html file and we are set. Only one function call is required, the Key.isDown() call. Given a parameter, the library checks if that particular key is current being pressed, and returns a boolean value.
 
 <script src="https://gist.github.com/nklsrh/5962965.js"></script>
@@ -151,7 +151,7 @@ If want to extend immersion, you could also using the paddle.scale property to s
 
 ![]({{ site.asset_root }}/{{ page.id }}/images/lighted-coloured-3d.png)
 
-## Making ball reset when miss paddle
+## Making the ball reset after missing a paddle
 To get the main scoring gameplay working, we need to first remove the ball’s ability to bonce off the paddle-facing walls. To do this, we remove the bounce code from the two corresponding if-else statements.
 
 <script src="https://gist.github.com/nklsrh/5963029.js"></script>
@@ -167,7 +167,7 @@ Finally, we have to reset the ball once someone has scored. A simple function ca
 
 ![]({{ site.asset_root }}/{{ page.id }}/images/right-colours-clean-ui.png)
 
-## Making ball bounce off paddle
+## Making the ball bounce off paddles
 Alright, this is it. The big one. Literally the biggest feature of this game. It’s time to get the paddles hitting the ball.
 In a simple Pong game, paddle-ball physics are nothing more than a couple of if-else statements. We check the X-position and Y-position of the ball against the paddle’s rectangular bounds, and if they intersect, we bounce the ball away. 
 
@@ -231,6 +231,7 @@ To make an object in the scene cast or receive shadows, we simply set their .rec
 This is but a basic introduction to the power of Three.js, which should allow you to create a basic Pong clone.
 
 *Play the latest build of this game here: [LATEST BUILD](http://nklsrh.github.io/BuildNewGames_ThreeJSGame)*
+
 *Find the latest code at [its GitHub page](http://github.com/nklsrh/BuildNewGames_ThreeJSGame)*
 
 You can still do quite a number of things to polish your game, such as

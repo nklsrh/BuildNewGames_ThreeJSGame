@@ -2,14 +2,18 @@
 <html>
 	<head>
 		<title>Game</title>
+		<script src='http://code.jquery.com/jquery-1.10.2.min.js'></script>
+
+		<script src='http://malsup.github.io/jquery.blockUI.js'></script>
 		<style>
 			body {
 				background-color: black;
+				overflow: hidden ;
 			}
 			#gameCanvas {
 				background-color: black;
-				width: 640px;
-				height: 360px;
+				position : absolute; 
+				top : 0;
 				margin: auto;
 				align: center;
 			}
@@ -18,16 +22,40 @@
 				font-family: Segoe UI, Helvetica, Ubuntu, sans-serif;
 				color: white;
 			}
-			#scores {
-				font-size:600%; 
-				padding:0; 
-				margin:0;
-				color: white;
+			
+			#myScore{
+			color : #009;
+			}
+			#cpuScore{
+			
+			color : #900;
+			}
+			#scbg{
+			background : #fff;
+				opacity : .7 ;
+				border-radius : 20px ;
+				position: absolute;
+				top:0;
+				left:0;
+				padding:20px; 
+				margin:20px;
+				height : 200px ;
+			}
+			#board{
+			position : absolute ;
+			top:100px;
+			right :20px;
 			}
 			#title {
 				background-color: white;
 				color: black;
+				position :absolute  ;
+				padding : 20px ;
+				margin : 20px ;
+				right:0 ;
+				top:0;
 			}
+			
 		</style>
 	</head>
 	<body onload='setup();'>
@@ -35,12 +63,29 @@
 		<script src='./Scripts/three.min.js'></script>
 		<script src='./Scripts/keyboard.js'></script>
 		<script src='./Scripts/game.js'></script>
+		
+		<div id="domMessage1" style="display:none;"> 
+                <h1>Player Wins ! Wanna play again ?</</h1> 
+				<input type="button" id="yes" value="Yes" /> 
+                <input type="button" id="no" value="No" /> 
+            </div> 
+			<div id="domMessage2" style="display:none;"> 
+                <h1>CPU wins ! Wanna play again ?</h1> 
+				<input type="button" id="yes" value="Yes" /> 
+                <input type="button" id="no" value="No" /> 
+            </div> 
 		<div id='scoreboard'>
-			<h1 id='scores'>0-0</h1>
-			<h1 id='title'>3D PONG</h1>
-			<h2 id='winnerBoard'>First to 7 wins!</h2>
+			<div id ="scbg"><h1 id='cpuScore'>0</h1>-<h1 id = "myScore">0</h1></div>
+			<h1 id='title'>CSI - Spython</h1>
+			
+			<span id = "board">
+			<h2 id="winnerBoard">First to 7 wins!</h2>
 			<h3>A - move left
 			<br>D - move right</h3>
+			</span>
 		</div>
+		
+		
+		
 	</body>
 </html>

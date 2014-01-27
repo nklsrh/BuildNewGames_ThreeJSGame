@@ -4,7 +4,6 @@
 // -------- Created by Nikhil Suresh ----------- //
 // -------- Three.JS is by Mr. doob  ----------- //
 // --------------------------------------------- //
-
 // ------------------------------------- //
 // ------- GLOBAL VARIABLES ------------ //
 // ------------------------------------- //
@@ -54,8 +53,8 @@ function setup()
 function createScene()
 {
 	// set the scene size
-	var WIDTH = 640,
-	  HEIGHT = 360;
+	var WIDTH = window.innerWidth,
+	  HEIGHT = window.innerHeight;
 
 	// set some camera attributes
 	var VIEW_ANGLE = 50,
@@ -355,7 +354,9 @@ function ballPhysics()
 		// CPU scores
 		score2++;
 		// update scoreboard HTML
-		document.getElementById("scores").innerHTML = score1 + "-" + score2;
+		document.getElementById("myScore").innerHTML = score1 ;
+		document.getElementById("cpuScore").innerHTML = score2;
+		
 		// reset ball to center
 		resetBall(2);
 		matchScoreCheck();	
@@ -367,7 +368,8 @@ function ballPhysics()
 		// Player scores
 		score1++;
 		// update scoreboard HTML
-		document.getElementById("scores").innerHTML = score1 + "-" + score2;
+		document.getElementById("myScore").innerHTML = score1 ;
+		document.getElementById("cpuScore").innerHTML = score2 ;
 		// reset ball to center
 		resetBall(1);
 		matchScoreCheck();	
@@ -590,8 +592,15 @@ function matchScoreCheck()
 		// stop the ball
 		ballSpeed = 0;
 		// write to the banner
-		document.getElementById("scores").innerHTML = "Player wins!";		
-		document.getElementById("winnerBoard").innerHTML = "Refresh to play again";
+		$.blockUI({ message: $('#domMessage1'), css: { width: '275px' } });
+$('#yes').click(function() { 
+            // update the block message 
+            window.location.href = window.location.href ; 
+ 
+            
+        });		
+		//document.getElementById("scores").innerHTML = "Player wins!";		
+		//document.getElementById("winnerBoard").innerHTML = "Refresh to play again";
 		// make paddle bounce up and down
 		bounceTime++;
 		paddle1.position.z = Math.sin(bounceTime * 0.1) * 10;
@@ -605,8 +614,18 @@ function matchScoreCheck()
 		// stop the ball
 		ballSpeed = 0;
 		// write to the banner
-		document.getElementById("scores").innerHTML = "CPU wins!";
-		document.getElementById("winnerBoard").innerHTML = "Refresh to play again";
+		$.blockUI({ message: $('#domMessage2'), css: { width: '275px' } });
+		$('#yes').click(function() { 
+            // update the block message 
+            window.location.href = window.location.href ; 
+ 
+            
+        });
+$('#no').click(function() { 
+            $.unblockUI(); 
+            return false; 
+        }); 
+		
 		// make paddle bounce up and down
 		bounceTime++;
 		paddle2.position.z = Math.sin(bounceTime * 0.1) * 10;
@@ -615,3 +634,4 @@ function matchScoreCheck()
 		paddle2.scale.y = 2 + Math.abs(Math.sin(bounceTime * 0.05)) * 10;
 	}
 }
+	

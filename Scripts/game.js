@@ -244,7 +244,7 @@ function createScene()
 		
 	// we iterate 10x (5x each side) to create pillars to show off shadows
 	// this is for the pillars on the left
-	for (var i = 0; i < 5; i++)
+	/*for (var i = 0; i < 5; i++)
 	{
 		var backdrop = new THREE.Mesh(
 		
@@ -264,10 +264,10 @@ function createScene()
 		backdrop.castShadow = true;
 		backdrop.receiveShadow = true;		  
 		scene.add(backdrop);	
-	}
+	}*/
 	// we iterate 10x (5x each side) to create pillars to show off shadows
 	// this is for the pillars on the right
-	for (var i = 0; i < 5; i++)
+	/*for (var i = 0; i < 5; i++)
 	{
 		var backdrop = new THREE.Mesh(
 
@@ -281,13 +281,13 @@ function createScene()
 
 		  pillarMaterial);
 		  
-		backdrop.position.x = -50 + i * 100;
+		//backdrop.position.x = -50 + i * 100;
 		backdrop.position.y = -230;
 		backdrop.position.z = -30;
 		backdrop.castShadow = true;
 		backdrop.receiveShadow = true;		
 		scene.add(backdrop);	
-	}
+	}*/
 	
 	// finally we finish by adding a ground plane
 	// to show off pretty shadows
@@ -344,6 +344,7 @@ function draw()
 	cameraPhysics();
 	playerPaddleMovement();
 	opponentPaddleMovement();
+	
 }
 
 function ballPhysics()
@@ -453,7 +454,8 @@ function playerPaddleMovement()
 		else
 		{
 			paddle1DirY = 0;
-			paddle1.scale.z += (10 - paddle1.scale.z) * 0.2;
+			//remove height increase
+			//paddle1.scale.z += (10 - paddle1.scale.z) * 0.2;
 		}
 	}	
 	// move right
@@ -470,7 +472,8 @@ function playerPaddleMovement()
 		else
 		{
 			paddle1DirY = 0;
-			paddle1.scale.z += (10 - paddle1.scale.z) * 0.2;
+			//remove height increase 
+			//paddle1.scale.z += (10 - paddle1.scale.z) * 0.2;
 		}
 	}
 	// else don't move paddle
@@ -522,7 +525,7 @@ function paddlePhysics()
 			if (ballDirX < 0)
 			{
 				// stretch the paddle to indicate a hit
-				paddle1.scale.y = 15;
+				//paddle1.scale.y = 15;
 				// switch direction of ball travel to create bounce
 				ballDirX = -ballDirX;
 				// we impact ball angle when hitting it
@@ -549,7 +552,7 @@ function paddlePhysics()
 			if (ballDirX > 0)
 			{
 				// stretch the paddle to indicate a hit
-				paddle2.scale.y = 15;	
+				//paddle2.scale.y = 15;	
 				// switch direction of ball travel to create bounce
 				ballDirX = -ballDirX;
 				// we impact ball angle when hitting it
@@ -562,7 +565,7 @@ function paddlePhysics()
 }
 
 function resetBall(loser)
-{
+{     
 	// position the ball in the center of the table
 	ball.position.x = 0;
 	ball.position.y = 0;
@@ -592,13 +595,14 @@ function matchScoreCheck()
 		// stop the ball
 		ballSpeed = 0;
 		// write to the banner
-		$.blockUI({ message: $('#domMessage1'), css: { width: '275px' } });
-$('#yes').click(function() { 
-            // update the block message 
-            window.location.href = window.location.href ; 
- 
-            
-        });		
+		//$.blockUI({ message: $('#domMessage1'), css: { width: '275px' } });
+	$('#domMessage1').bPopup({
+		//onClose: function() { game.restart() },
+		modalClose : false,
+	    easing: 'easeOutBack', //uses jQuery easing plugin
+            speed: 600,
+            transition: 'slideDown'
+        });
 		//document.getElementById("scores").innerHTML = "Player wins!";		
 		//document.getElementById("winnerBoard").innerHTML = "Refresh to play again";
 		// make paddle bounce up and down
@@ -614,17 +618,15 @@ $('#yes').click(function() {
 		// stop the ball
 		ballSpeed = 0;
 		// write to the banner
-		$.blockUI({ message: $('#domMessage2'), css: { width: '275px' } });
-		$('#yes').click(function() { 
-            // update the block message 
-            window.location.href = window.location.href ; 
- 
-            
+		//$.blockUI({ message: $('#domMessage2'), css: { width: '275px' } });
+		$('#domMessage2').bPopup({
+		//onClose: function() { game.restart() },
+		modalClose : false,
+	    easing: 'easeOutBack', //uses jQuery easing plugin
+            speed: 600,
+            transition: 'slideDown'
         });
-$('#no').click(function() { 
-            $.unblockUI(); 
-            return false; 
-        }); 
+
 		
 		// make paddle bounce up and down
 		bounceTime++;
@@ -634,4 +636,4 @@ $('#no').click(function() {
 		paddle2.scale.y = 2 + Math.abs(Math.sin(bounceTime * 0.05)) * 10;
 	}
 }
-	
+	$.unblockUI();

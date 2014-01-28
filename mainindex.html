@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Game</title>
+		<script src='Scripts/jquery-1.10.js'></script>
+        <script src='Scripts/jqeasing.js'></script>
+		<script src='Scripts/bpopup.js'></script>
+<style>
+		#rules{
+			background : url('images/pattern.jpg');
+			padding : 30px ;
+			border-radius : 30px ;
+			font : bold 20px tahoma ;
+			position : absolute ;
+			left : 500px ;
+			
+			}
+			
+		</style>
+	</head>
+	<body background="images/pattern1.jpg">
+	<div id="rules" style="display:none">
+			<center><h1>3-D Pong</h1>
+            <p>Altimated Pong Game for Dummies !<br>
+			<button><a href="index.html">PLAY NOW</a></button>
+			</center>
+			</div>	
+		<script>
+		window.onload = loader;
+		function loader(){
+		$('#rules').bPopup({
+		//onClose: function() { game.restart() },
+		modalClose : false,
+	    easing: 'easeOutBack', //uses jQuery easing plugin
+            speed: 2500,
+            transition: 'slideIn'
+        });
+		
+		}
+		</script>
+		
+	</body>
+</html>

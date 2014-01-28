@@ -22,27 +22,30 @@
 			}
 			#scoreboard {
 				text-align: center;
-				font-family: Segoe UI, Helvetica, Ubuntu, sans-serif;
+				
 				color: white;
 			}
 			
 			#myScore{
+			display:inline;
 			color : #009;
 			}
 			#cpuScore{
-			
+			display:inline;
 			color : #900;
 			}
 			#scbg{
 			background : #fff;
 				opacity : .7 ;
+				font : bold 30px tahoma;
 				border-radius : 20px ;
 				position: absolute;
 				top:0;
 				left:0;
 				padding:20px; 
 				margin:20px;
-				height : 200px ;
+				height : 150px ;
+				width :150px;
 			}
 			#board{
 			position : absolute ;
@@ -110,7 +113,7 @@
             </div>
             		
 		<div id='scoreboard'>
-			<div id ="scbg"><h1 id='cpuScore'>0</h1>-<h1 id = "myScore">0</h1></div>
+			<div id ="scbg">&nbsp&nbsp<h1 id='cpuScore'>0</h1>-<br><h1 id = "myScore">0</h1></div>
 			<h1 id='title'>CSI - Spython</h1>
 			
 			<span id = "board">

@@ -1,14 +1,4 @@
 
-// --------------------------------------------- //
-// ------- 3D PONG built with Three.JS --------- //
-// -------- Created by Nikhil Suresh ----------- //
-// -------- Three.JS is by Mr. doob  ----------- //
-// --------------------------------------------- //
-// ------------------------------------- //
-// ------- GLOBAL VARIABLES ------------ //
-// ------------------------------------- //
-
-// scene object variables
 var renderer, scene, camera, pointLight, spotLight;
 
 // field variables
@@ -30,9 +20,8 @@ var maxScore = 7;
 // set opponent reflexes (0 - easiest, 1 - hardest)
 var difficulty = 0.2;
 
-// ------------------------------------- //
-// ------- GAME FUNCTIONS -------------- //
-// ------------------------------------- //
+
+// ------- SETTING UP CONTROLS,PHYSICS-------------- //
 
 function setup()
 {
@@ -81,8 +70,8 @@ function createScene()
 	
 	// set a default position for the camera
 	// not doing this somehow messes up shadow rendering
-	camera.position.z = 320;
-	
+	camera.position.z = 320;//default
+	//camera.position.z = 700;
 	// start the renderer
 	renderer.setSize(WIDTH, HEIGHT);
 
@@ -92,7 +81,7 @@ function createScene()
 	// set up the playing surface plane 
 	var planeWidth = fieldWidth,
 		planeHeight = fieldHeight,
-		planeQuality = 10;
+		planeQuality =10;// # TODO increase the value before final game launch 
 		
 	// create the paddle1's material
 	var paddle1Material =
@@ -107,16 +96,21 @@ function createScene()
 		  color: 0xFF4045
 		});
 	// create the plane's material	
+	var mapUrl = "\images\\pattern1.jpg";
+var map = THREE.ImageUtils.loadTexture(mapUrl);
 	var planeMaterial =
-	  new THREE.MeshLambertMaterial(
+	  new THREE.MeshPhongMaterial(
 		{
-		  color: 0x4BD121
+		  map : map
 		});
 	// create the table's material
+	var mapUrl = "\images\\pattern.jpg";
+var map1 = THREE.ImageUtils.loadTexture(mapUrl);
 	var tableMaterial =
 	  new THREE.MeshLambertMaterial(
 		{
-		  color: 0x111111
+		  map:map1
+		  
 		});
 	// create the pillar's material
 	var pillarMaterial =
@@ -125,10 +119,12 @@ function createScene()
 		  color: 0x534d0d
 		});
 	// create the ground's material
+	var mapUrl = "\images\\space.jpg";
+var map2 = THREE.ImageUtils.loadTexture(mapUrl);
 	var groundMaterial =
 	  new THREE.MeshLambertMaterial(
 		{
-		  color: 0x888888
+		  map:map2
 		});
 		
 		
@@ -136,7 +132,7 @@ function createScene()
 	var plane = new THREE.Mesh(
 
 	  new THREE.PlaneGeometry(
-		planeWidth * 0.95,	// 95% of table width, since we want to show where the ball goes out-of-bounds
+		planeWidth *.95,	// 95% of table width, since we want to show where the ball goes out-of-bounds
 		planeHeight,
 		planeQuality,
 		planeQuality),
@@ -149,12 +145,12 @@ function createScene()
 	var table = new THREE.Mesh(
 
 	  new THREE.CubeGeometry(
-		planeWidth * 1.05,	// this creates the feel of a billiards table, with a lining
-		planeHeight * 1.03,
+		planeWidth ,	
+		planeHeight *1.05,
 		100,				// an arbitrary depth, the camera can't see much of it anyway
+		planeQuality*20,
 		planeQuality,
-		planeQuality,
-		1),
+		10),
 
 	  tableMaterial);
 	table.position.z = -51;	// we sink the table into the ground by 50 units. The extra 1 is so the plane can be seen
@@ -164,8 +160,8 @@ function createScene()
 	// // set up the sphere vars
 	// lower 'segment' and 'ring' values will increase performance
 	var radius = 5,
-		segments = 6,
-		rings = 6;
+		segments = 20,
+		rings = 20;
 		
 	// // create the sphere's material
 	var sphereMaterial =
@@ -198,7 +194,7 @@ function createScene()
 	paddleWidth = 10;
 	paddleHeight = 30;
 	paddleDepth = 10;
-	paddleQuality = 1;
+	paddleQuality = 20;
 		
 	paddle1 = new THREE.Mesh(
 
@@ -294,8 +290,8 @@ function createScene()
 	var ground = new THREE.Mesh(
 
 	  new THREE.CubeGeometry( 
-	  1000, 
-	  1000, 
+	  4000, 
+	  3000, 
 	  3, 
 	  1, 
 	  1,
@@ -315,7 +311,7 @@ function createScene()
 	pointLight.position.x = -1000;
 	pointLight.position.y = 0;
 	pointLight.position.z = 1000;
-	pointLight.intensity = 2.9;
+	pointLight.intensity = 1.5;
 	pointLight.distance = 10000;
 	// add to the scene
 	scene.add(pointLight);
@@ -323,8 +319,9 @@ function createScene()
 	// add a spot light
 	// this is important for casting shadows
     spotLight = new THREE.SpotLight(0xF8D898);
-    spotLight.position.set(0, 0, 460);
-    spotLight.intensity = 1.5;
+    //spotLight.position.set(0, 0, 460);
+	spotLight.position.set(460,460 , 460);
+    spotLight.intensity = .5;
     spotLight.castShadow = true;
     scene.add(spotLight);
 	
@@ -355,6 +352,27 @@ function ballPhysics()
 		// CPU scores
 		score2++;
 		// update scoreboard HTML
+		$.blockUI({ 
+            message: $('div.growlUI1'), 
+            fadeIn: 700, 
+            fadeOut: 700, 
+            timeout: 2000, 
+            showOverlay: false, 
+            centerY: false, 
+            css: { 
+                width: '350px', 
+                top: '300px', 
+                left: '500px', 
+                right: '', 
+                border: 'none', 
+                padding: '5px', 
+                backgroundColor: '#000', 
+                '-webkit-border-radius': '10px', 
+                '-moz-border-radius': '10px', 
+                opacity: .6, 
+                color: '#fff' 
+            } 
+        }); 
 		document.getElementById("myScore").innerHTML = score1 ;
 		document.getElementById("cpuScore").innerHTML = score2;
 		
@@ -369,6 +387,28 @@ function ballPhysics()
 		// Player scores
 		score1++;
 		// update scoreboard HTML
+		$.blockUI({ 
+            message: $('div.growlUI'), 
+            fadeIn: 700, 
+            fadeOut: 700, 
+            timeout: 2000, 
+            showOverlay: false, 
+            centerY: false, 
+            css: { 
+                width: '350px',
+                height:'150px',				
+                top: '300px', 
+                left: '500px', 
+                right: '', 
+                border: 'none', 
+                padding: '5px', 
+                backgroundColor: '#000', 
+                '-webkit-border-radius': '10px', 
+                '-moz-border-radius': '10px', 
+                opacity: .6, 
+                color: '#fff' 
+            } 
+        }); 
 		document.getElementById("myScore").innerHTML = score1 ;
 		document.getElementById("cpuScore").innerHTML = score2 ;
 		// reset ball to center
@@ -607,10 +647,10 @@ function matchScoreCheck()
 		//document.getElementById("winnerBoard").innerHTML = "Refresh to play again";
 		// make paddle bounce up and down
 		bounceTime++;
-		paddle1.position.z = Math.sin(bounceTime * 0.1) * 10;
+		//paddle1.position.z = Math.sin(bounceTime * 0.1) * 10;
 		// enlarge and squish paddle to emulate joy
-		paddle1.scale.z = 2 + Math.abs(Math.sin(bounceTime * 0.1)) * 10;
-		paddle1.scale.y = 2 + Math.abs(Math.sin(bounceTime * 0.05)) * 10;
+		//paddle1.scale.z = 2 + Math.abs(Math.sin(bounceTime * 0.1)) * 10;
+		//paddle1.scale.y = 2 + Math.abs(Math.sin(bounceTime * 0.05)) * 10;
 	}
 	// else if opponent has 7 points
 	else if (score2 >= maxScore)
@@ -630,10 +670,10 @@ function matchScoreCheck()
 		
 		// make paddle bounce up and down
 		bounceTime++;
-		paddle2.position.z = Math.sin(bounceTime * 0.1) * 10;
+		//paddle2.position.z = Math.sin(bounceTime * 0.1) * 10;
 		// enlarge and squish paddle to emulate joy
-		paddle2.scale.z = 2 + Math.abs(Math.sin(bounceTime * 0.1)) * 10;
-		paddle2.scale.y = 2 + Math.abs(Math.sin(bounceTime * 0.05)) * 10;
+		//paddle2.scale.z = 2 + Math.abs(Math.sin(bounceTime * 0.1)) * 10;
+		//paddle2.scale.y = 2 + Math.abs(Math.sin(bounceTime * 0.05)) * 10;
 	}
 }
 	$.unblockUI();

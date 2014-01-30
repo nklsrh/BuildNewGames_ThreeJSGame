@@ -132,7 +132,7 @@
 				color:		'#000',
 				border:		'3px solid #aaa',
 				backgroundColor:'#fff',
-				cursor:		'wait'
+				cursor:		'default'
 			},
 
 			// minimal style set used when themes are used
@@ -259,7 +259,7 @@
 			opts.overlayCSS = $.extend({}, $.blockUI.defaults.overlayCSS, opts.overlayCSS || {});
 			css = $.extend({}, $.blockUI.defaults.css, opts.css || {});
 			if (opts.onOverlayClick)
-				opts.overlayCSS.cursor = 'pointer';
+				opts.overlayCSS.cursor = 'default';
 
 			themedCSS = $.extend({}, $.blockUI.defaults.themedCSS, opts.themedCSS || {});
 			msg = msg === undefined ? opts.message : msg;

@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+	<head>
+		<title>SPACE PONG SUPER</title>
+		<script src='Scripts/jquery-1.10.js'></script>
+        <script src='Scripts/jqeasing.js'></script>
+		<script src='Scripts/bpopup.js'></script>
+
+		<script src='Scripts/blockUI.js'></script>
+		
+		<style>
+			body {
+				background-color: black;
+				overflow: hidden ;
+			}
+			#gameCanvas {
+				background-color: black;
+				position : absolute; 
+				top : 0;
+				margin: auto;
+				align: center;
+			}
+			div.growlUI { background: url('images/check48.png') no-repeat 10px 10px }
+			
+			#scoreboard {
+				text-align: center;
+				
+				color: white;
+			}
+			
+			#myScore{
+			display:inline;
+			color : #009;
+			}
+			#cpuScore{
+			display:inline;
+			color : #900;
+			}
+			#scbg{
+			background : #fff;
+				opacity : .7 ;
+				font : bold 30px tahoma;
+				border-radius : 20px ;
+				position: absolute;
+				top:0;
+				left:0;
+				padding:20px; 
+				margin:20px;
+				height : 150px ;
+				width :150px;
+			}
+			#board{
+			position : absolute ;
+			top:100px;
+			right :20px;
+			}
+			#title {
+				background-color: white;
+				color: black;
+				position :absolute  ;
+				padding : 20px ;
+				margin : 20px ;
+				right:0 ;
+				top:0;
+			}
+			.message{
+			background : url('images/pattern.jpg');
+			padding : 30px ;
+			border-radius : 30px ;
+			font : bold 20px tahoma ;
+			
+			
+			}
+			#rules{
+			background : url('images/pattern.jpg');
+			padding : 30px ;
+			border-radius : 30px ;
+			font : bold 20px tahoma ;
+			position : absolute ;
+			left : 500px ;
+			
+			}
+			
+		</style>
+	</head>
+	<body onload='setup();'>
+	<script>
+	
+	$.blockUI({ css: { 
+            border: 'none', 
+            padding: '15px', 
+            backgroundColor: '#000', 
+            '-webkit-border-radius': '10px', 
+            '-moz-border-radius': '10px', 
+            opacity: .5, 
+            color: '#fff' 
+        } }); 
+	
+	
+	</script>
+		<div id='gameCanvas'></div>
+		<script src='./Scripts/three.min.js'></script>
+		<script src='./Scripts/keyboard.js'></script>
+		<script src='./Scripts/game.js'></script>
+		
+		<div id="domMessage1" style="display:none;" class="message"> 
+                <h1>Player Wins ! Wanna play again ?</</h1> <br>
+				<a class="b-close"><input type="button" id="yes" value="Yes" onclick="fun()"/> </a>
+                <input type="button" id="no" value="No" /> 
+            </div> 
+			<div id="domMessage2" style="display:none;" class="message"> 
+                <h1>CPU wins ! Wanna play again ?</h1> <br>
+				<a class="b-close"><input type="button" id="yes" value="Yes" onclick="fun()"/> </a>
+                <input type="button" id="no" value="No" /> 
+            </div>
+            		
+		<div id='scoreboard'>
+			<div id ="scbg">&nbsp&nbsp<h1 id='cpuScore'>0</h1>-<br><h1 id = "myScore">0</h1></div>
+			<h1 id='title'>CSI - Spython</h1>
+			
+			<span id = "board">
+			<h2 id="winnerBoard">First to 7 wins!</h2>
+			<h3>A - move left
+			<br>D - move right</h3>
+			</span>
+		</div>
+	<script>
+	function fun(){
+	
+	ballSpeed = 2+Math.floor(Math.random()*2);
+	score1=score2=0;
+	document.getElementById("myScore").innerHTML = score1 ;
+		document.getElementById("cpuScore").innerHTML = score2 ;
+	resetBall(1);
+	
+	}
+	 
+	</script>
+		<div class="growlUI" style="display: none;">
+            <h1>+1</h1>
+            <h2>Well Done !</h2>
+        </div>
+		<div class="growlUI1" style="display: none;">
+            <h1>Concentrate Dude!</h1>
+            
+        </div>
+		
+	</body>
+</html>

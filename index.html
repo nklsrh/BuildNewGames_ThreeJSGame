@@ -1,46 +1,43 @@
 <!doctype html>
 <html>
 	<head>
-		<title>Game</title>
-		<style>
-			body {
-				background-color: black;
+		<title>SPACE PONG SUPER</title>
+		<script src='Scripts/jquery-1.10.js'></script>
+        <script src='Scripts/jqeasing.js'></script>
+		<script src='Scripts/bpopup.js'></script>
+<style>
+		#rules{
+			background : url('images/pattern.jpg');
+			padding : 30px ;
+			border-radius : 30px ;
+			font : bold 20px tahoma ;
+			position : absolute ;
+			left : 500px ;
+			
 			}
-			#gameCanvas {
-				background-color: black;
-				width: 640px;
-				height: 360px;
-				margin: auto;
-				align: center;
-			}
-			#scoreboard {
-				text-align: center;
-				font-family: Segoe UI, Helvetica, Ubuntu, sans-serif;
-				color: white;
-			}
-			#scores {
-				font-size:600%; 
-				padding:0; 
-				margin:0;
-				color: white;
-			}
-			#title {
-				background-color: white;
-				color: black;
-			}
+			
 		</style>
 	</head>
-	<body onload='setup();'>
-		<div id='gameCanvas'></div>
-		<script src='./Scripts/three.min.js'></script>
-		<script src='./Scripts/keyboard.js'></script>
-		<script src='./Scripts/game.js'></script>
-		<div id='scoreboard'>
-			<h1 id='scores'>0-0</h1>
-			<h1 id='title'>3D PONG</h1>
-			<h2 id='winnerBoard'>First to 7 wins!</h2>
-			<h3>A - move left
-			<br>D - move right</h3>
-		</div>
+	<body background="images/pattern1.jpg">
+	<div id="rules" style="display:none">
+			<center><h1>3-D Pong</h1>
+            <p>Altimated Pong Game for Dummies !<br>
+			<button><a href="mainIndex.html">PLAY NOW</a></button>
+			</center>
+			</div>	
+		<script>
+		window.onload = loader;
+		function loader(){
+		$('#rules').bPopup({
+		//onClose: function() { game.restart() },
+		modalClose : false,
+	    easing: 'easeOutBack', //uses jQuery easing plugin
+            speed: 2500,
+            transition: 'slideIn'
+        });
+		
+		}
+		</script>
+		
 	</body>
 </html>
